@@ -14,8 +14,8 @@ def deriv(func,steps,pars,length):
         pars1[good_indices[i]]=pars[good_indices[i]]+h
         fm1=func(parsm1)
         f1=func(pars1)
-        der[:,i]= (f1-fm1)/(2*h) #central value derivative
-    return der[2:length+2] #making sure that its valid at the borders 
+        der[:,i]= ((f1-fm1)/(2*h))[2:length+2] #central value derivative
+    return der #making sure that its valid at the borders 
 #
 #def chisq(pred,data,err):
 #    return np.sum(((pred-data)**2)/(err**2))
@@ -107,7 +107,7 @@ def run_mcmc(fun,pars,true_y,Ninv,corr_mat,nstep=5000):
         chivec[i]=chi_cur
     return np.asarray(chain),chivec
 
-#plt.ion()
+plt.ion()
 
 #pars=np.asarray([65,0.02,0.1,0.05,2e-9,0.96])
 wmap=np.loadtxt('wmap_tt_spectrum_9yr_v5.txt')
