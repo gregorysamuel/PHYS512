@@ -13,8 +13,8 @@ def deriv(func,steps,pars,length):
         pars1[good_indices[i]]=pars[good_indices[i]]+h
         fm1=func(parsm1)
         f1=func(pars1)
-        der[:,i]= (f1-fm1)/(2*h) #central value derivative
-    return der[2:length+2] #making sure that its valid at the borders 
+        der[:,i]= ((f1-fm1)/(2*h))[2:length+2] #central value derivative
+    return der #making sure that its valid at the borders 
 
 
 def get_spectrum(pars,lmax=2000):
