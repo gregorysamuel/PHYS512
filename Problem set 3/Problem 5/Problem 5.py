@@ -1,7 +1,6 @@
 import numpy as np
 import camb
 from matplotlib import pyplot as plt
-import time
 
 def deriv(func,steps,pars,length): 
     good_indices=np.argwhere(steps!=0).transpose()[0,:] #the 'good indices' are those where we 
@@ -14,8 +13,8 @@ def deriv(func,steps,pars,length):
         pars1[good_indices[i]]=pars[good_indices[i]]+h
         fm1=func(parsm1)
         f1=func(pars1)
-        der[:,i]= (f1-fm1)/(2*h) #central value derivative
-    return der[2:length+2] #making sure that its valid at the borders )/(2*h)
+        der[:,i]= ((f1-fm1)/(2*h))[2:length+2] #central value derivative
+    return der #making sure that its valid at the borders )/(2*h)
 
 
 def get_spectrum(pars,lmax=2000):
@@ -107,7 +106,7 @@ def run_mcmc(fun,pars,true_y,Ninv,corr_mat,nstep=150):
         chivec[i]=chi_cur
     return np.asarray(chain),chivec,reject
 
-#plt.ion()
+plt.ion()
 
 wmap=np.loadtxt('wmap_tt_spectrum_9yr_v5.txt')
 Ninv=np.linalg.inv(np.diag(wmap[:,2])**2)
